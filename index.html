@@ -1,27 +1,46 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8">
+    <title>Twittler</title>
+    <link rel="stylesheet" href="css/style.css">
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
+    <script src="tweet_functions.js"></script>
   </head>
   <body>
+
     <script>
 
       $(document).ready(function(){
         var $body = $('body');
         $body.html('');
 
-        var index = streams.home.length - 1;
-        while(index >= 0){
-          var tweet = streams.home[index];
-          var $tweet = $('<div></div>');
-          $tweet.text('@' + tweet.user + ': ' + tweet.message);
-          $tweet.appendTo($body);
-          index -= 1;
-        }
+        var twittler = new Twittler();
 
+        var timeline = $('<div></div>');
+        timeline.attr('id','timeline');
+        
+
+        var newTweetsButton = $('<button></button>');
+        newTweetsButton.text('Check New Tweets');
+        newTweetsButton.attr('id','newTweetsButton');
+        newTweetsButton.appendTo($body);
+        newTweetsButton.on('click', function(){
+        var startIndex = twittler.getLastTweetIndex();
+        var endIndex = streams.home.length - 1;
+        twittler.setLastTweetIndex(endIndex+1);
+        twittler.tweets(startIndex, endIndex);
+        });
+        
+        timeline.appendTo($body);
+        
+        var index = streams.home.length - 1;
+
+        twittler.setLastTweetIndex(index+1);
+        twittler.tweets(0, index);
       });
 
-    </script>
+    </script>    
   </body>
 </html>
