@@ -15,6 +15,7 @@ function Twittler(){
 
 		//show all tweets
 		$('.singleTweet').show();
+		$('#newTweetsButton').text('0 New Tweets');
 		
 		 while(endIndex >= startIndex){
           var tweet = streams.home[endIndex];
@@ -49,4 +50,12 @@ function filterUser(){
 	
 	filteredTimeline.filter(function(){return $(this).data('user') === user;}).show();
 }
+
+function updateNewTweetsNumber(obj){
+    	var lastTweetIndex = obj.getLastTweetIndex();
+    	var allTweetsNumber = streams.home.length;    	
+    	var newTweetsNumber = allTweetsNumber - lastTweetIndex;
+    	$('#newTweetsButton').text(newTweetsNumber+' New Tweets');
+		setTimeout(function(){updateNewTweetsNumber(obj);}, 10000);
+	}
 

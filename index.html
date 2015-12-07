@@ -16,16 +16,21 @@
         var $body = $('body');
         $body.html('');
 
+        var mainBody = $('<section></section>');
+        mainBody.attr('id','mainBody');
+        mainBody.appendTo($body);
+
         var twittler = new Twittler();
 
         var timeline = $('<div></div>');
         timeline.attr('id','timeline');
         
+        
 
         var newTweetsButton = $('<button></button>');
         newTweetsButton.text('Check New Tweets');
         newTweetsButton.attr('id','newTweetsButton');
-        newTweetsButton.appendTo($body);
+        newTweetsButton.appendTo(mainBody);
         newTweetsButton.on('click', function(){
         var startIndex = twittler.getLastTweetIndex();
         var endIndex = streams.home.length - 1;
@@ -33,12 +38,14 @@
         twittler.tweets(startIndex, endIndex);
         });
         
-        timeline.appendTo($body);
+        timeline.appendTo(mainBody);
         
         var index = streams.home.length - 1;
 
         twittler.setLastTweetIndex(index+1);
         twittler.tweets(0, index);
+
+        updateNewTweetsNumber(twittler);
       });
 
     </script>    
