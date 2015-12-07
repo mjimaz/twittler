@@ -17,16 +17,27 @@ function Twittler(){
 		$('.singleTweet').show();
 		$('#newTweetsButton').text('0 New Tweets');
 		
-		 while(endIndex >= startIndex){
-          var tweet = streams.home[endIndex];
+		 while(startIndex <= endIndex){
+          var tweet = streams.home[startIndex];
           
           var $tweet = $('<div data-user ='+tweet.user+'></div>');
           $tweet.attr('class','singleTweet');
 
           var tweetHeader = $('<div></div>');
-          tweetHeader.text('@' + tweet.user +' - '+ formatDate(tweet.created_at));
           tweetHeader.attr('class','tweetHeader');
-          tweetHeader.on('click', filterUser);
+
+          var tweetHeaderUser = $('<div></div>');
+          tweetHeaderUser.text('@' + tweet.user);
+          tweetHeaderUser.on('click', filterUser);
+          tweetHeaderUser.attr('id', 'tweetHeaderUser');
+
+          var tweetHeaderDate = $('<div></div>');
+          tweetHeaderDate.text(' - '+ formatDate(tweet.created_at));
+          tweetHeaderDate.attr('data-date', tweet.created_at);
+          tweetHeaderDate.attr('id', 'tweetHeaderDate');
+          
+          tweetHeaderUser.appendTo(tweetHeader);
+          tweetHeaderDate.appendTo(tweetHeader);
           
           var tweetContent = $('<div></div>');
           tweetContent.text(tweet.message);
@@ -36,19 +47,20 @@ function Twittler(){
           tweetContent.appendTo($tweet);
      
           $tweet.prependTo($('#timeline'));
-          endIndex--;
+          startIndex++;
         }
+        updateTweetTimes();
 	}
 }
 
 function filterUser(){
-	var user = $(this).parent().data('user');
-	console.log(user);
+	var user = $(this).parent().parent().data('user');
 	var filteredTimeline = $('#timeline').children('div');
 		
 	$('.singleTweet').hide();
 	
 	filteredTimeline.filter(function(){return $(this).data('user') === user;}).show();
+	updateTweetTimes();
 }
 
 function updateNewTweetsNumber(obj){
@@ -93,10 +105,29 @@ function formatDate(fullDate){
 		
 }
 
-function submitNewTweet(){
+function submitNewTweet(twittler){
 	window.visitor = 'maryam'; //set global windows variable
 	var tweetContent = $('#newTweetInput').val();
 	$('#newTweetInput').val('');
-	writeTweet(tweetContent);
+	if(tweetContent === ''){
+		alert('Cannot tweet void!');
+	}else{
+		writeTweet(tweetContent);
+	}
+
+	var startIndex = twittler.getLastTweetIndex();
+    var endIndex = streams.home.length - 1;
+    twittler.setLastTweetIndex(endIndex+1);
+    twittler.tweets(startIndex, endIndex);
+    updateTweetTimes();
 }
 
+function updateTweetTimes(){
+	
+	var tweetTimes = $('#timeline').children('div').children('div').children('div').filter(function(){return $(this).data('date');});
+
+	tweetTimes.each(function(index, obj){
+		var date = $(this).attr('data-date');
+		$(this).text(' - '+ formatDate(new Date(date)));
+	});
+}

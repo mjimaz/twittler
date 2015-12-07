@@ -20,6 +20,8 @@
         mainBody.attr('id','mainBody');
         mainBody.appendTo($body);
 
+        var twittler = new Twittler();
+
         //user to tweet section
         var newTweet = $('<div></div>');
         newTweet.attr('id','newTweetSection');
@@ -29,7 +31,7 @@
         var submitTweetButton = $('<button></button>');
         submitTweetButton.text('Tweet!');
         submitTweetButton.attr('id','submitTweetButton');
-        submitTweetButton.on('click', submitNewTweet);
+        submitTweetButton.on('click', function(){submitNewTweet(twittler);});
         newTweetInput.appendTo(newTweet);
         submitTweetButton.appendTo(newTweet);
 
@@ -37,17 +39,17 @@
         var timeline = $('<div></div>');
         timeline.attr('id','timeline');
         
-        var twittler = new Twittler();
+        
 
         var newTweetsButton = $('<button></button>');
         newTweetsButton.text('Check New Tweets');
         newTweetsButton.attr('id','newTweetsButton');
         newTweetsButton.appendTo(mainBody);
         newTweetsButton.on('click', function(){
-        var startIndex = twittler.getLastTweetIndex();
-        var endIndex = streams.home.length - 1;
-        twittler.setLastTweetIndex(endIndex+1);
-        twittler.tweets(startIndex, endIndex);
+            var startIndex = twittler.getLastTweetIndex();
+            var endIndex = streams.home.length - 1;
+            twittler.setLastTweetIndex(endIndex+1);
+            twittler.tweets(startIndex, endIndex);
         });
         
         timeline.appendTo(mainBody);

@@ -50,6 +50,13 @@ button {
     height: 2em;
     margin: 2em;
     width: 10em;
+}
 
+#tweetHeaderUser, #tweetHeaderDate{
+  display: inline-block;
+}
+
+#tweetHeaderDate{
+  margin-left: 0.25em;
 }
 
