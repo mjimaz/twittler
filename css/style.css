@@ -1,19 +1,21 @@
 html {
   font-family: Helvetica, Arial, sans-serif;
   font-size: 100%;
-  background: #FFF;
+  background: #ECECED;
 }
 
 button {
 	margin:1em 25em;
+	font-weight: bold;
 }
 
 #mainBody {
    
-  position: fixed;
   margin:5em 25em;
   width: 50%;
-  border: 1px solid #e1e8ed;
+  border: 1px solid #ECECED;
+  background: #FFF;
+
 }
 
 #timeline {
@@ -21,16 +23,33 @@ button {
 }
 
 .singleTweet:hover {
-    background-color: #f5f8fa;
+	background-color: #eee;
 }
 
 .singleTweet {
 	margin:10px 10px 10px 10px;
-    border-bottom: 1px solid #e1e8ed;
-    
+    border-bottom: 1px solid #ECECED;    
 }
 
 .tweetHeader{
 	cursor: pointer;
+	font-weight: bold;
+}
+
+#newTweetInput{
+	display: block;
+    float: left;
+    height: 5em;
+    width: 40em;
+    margin: 0.5em;
+}
+
+#submitTweetButton{
+	display: block;
+    float: left;
+    height: 2em;
+    margin: 2em;
+    width: 10em;
+
 }
 

@@ -16,16 +16,28 @@
         var $body = $('body');
         $body.html('');
 
-        var mainBody = $('<section></section>');
+        var mainBody = $('<div></div>');
         mainBody.attr('id','mainBody');
         mainBody.appendTo($body);
 
-        var twittler = new Twittler();
+        //user to tweet section
+        var newTweet = $('<div></div>');
+        newTweet.attr('id','newTweetSection');
+        newTweet.appendTo(mainBody);
+        var newTweetInput = $('<textarea type="text" name="textbox">');
+        newTweetInput.attr('id','newTweetInput');
+        var submitTweetButton = $('<button></button>');
+        submitTweetButton.text('Tweet!');
+        submitTweetButton.attr('id','submitTweetButton');
+        submitTweetButton.on('click', submitNewTweet);
+        newTweetInput.appendTo(newTweet);
+        submitTweetButton.appendTo(newTweet);
+
 
         var timeline = $('<div></div>');
         timeline.attr('id','timeline');
         
-        
+        var twittler = new Twittler();
 
         var newTweetsButton = $('<button></button>');
         newTweetsButton.text('Check New Tweets');
