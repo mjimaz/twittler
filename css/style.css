@@ -1,0 +1,28 @@
+html {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 100%;
+  background: #FFF;
+}
+
+button {
+	margin:10px 10px 10px 10px;
+}
+
+#timeline {
+	margin:10px 10px 10px 10px;
+}
+
+.singleTweet:hover {
+    background-color: #f5f8fa;
+}
+
+.singleTweet {
+	margin:10px 10px 10px 10px;
+    border-bottom: 1px solid #e1e8ed;
+    
+}
+
+.tweetHeader{
+	cursor: pointer;
+}
+
